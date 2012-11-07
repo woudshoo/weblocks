@@ -32,9 +32,9 @@
 (defmethod get-widget-for-tokens ((obj on-demand-selector) tokens)
   "Looks up and returns the widget in the cache based on the
 tokens. If the widget is not in the cache and make-if-missing is
-t (the default), calls the lookup-function to make a new one. Returns three
-values -- a widget, a list of consumed tokens, and a list of remaining
-tokens."
+t (the default), calls the lookup-function to make a new one.  The
+lookup-function returns three values -- a widget, a list of consumed
+tokens, and a list of remaining tokens."
   (if (and (on-demand-selector-cache obj)
 	   (uri-tokens-start-with (remaining-tokens tokens) (car (on-demand-selector-cache obj))))
       (progn
