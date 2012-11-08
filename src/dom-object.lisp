@@ -49,18 +49,15 @@ name and the names of its subclasses. It is safe to assume that all
 widgets will have a CSS class of 'widget'."))
 
 (defmethod dom-classes ((obj dom-object-mixin))
-  (format nil "~A~@[ ~A~]"
-	  (apply #'concatenate 'string
-		 (intersperse
-		  (mapcar (compose #'attributize-name #'class-name)
-			  (reverse
-			   ;; we remove the dom-object-mixin from the list of classes, as it
-			   ;; isn't too useful when styling widgets --jwr
-			   (loop for i in (remove (find-class 'dom-object-mixin)
-						  (moptilities:superclasses obj :proper? nil))
-			      until (string-equal (class-name i) 'standard-object)
-			      collect i)))
-		  " "))
+  (format nil "~{~A~^ ~}~@[ ~A~]"
+	  (mapcar (compose #'attributize-name #'class-name)
+		  (reverse
+		   ;; we remove the dom-object-mixin from the list of classes, as it
+		   ;; isn't too useful when styling widgets --jwr
+		   (loop for i in (remove (find-class 'dom-object-mixin)
+					  (moptilities:superclasses obj :proper? nil))
+		      until (string-equal (class-name i) 'standard-object)
+		      collect i)))
 	  (dom-class obj)))
 
 (defmethod dom-classes ((obj symbol))
