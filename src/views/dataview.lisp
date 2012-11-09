@@ -14,8 +14,9 @@
 
 ;;; Data view field
 (defclass data-view-field (inline-view-field)
-  ((presentation :initform (make-instance 'text-presentation)))
-  (:documentation "A field class of the data view."))
+  ()
+  (:documentation "A field class of the data view.")
+  (:default-initargs :present-as (make-instance 'text-presentation)))
 
 ;;; Make scaffolding system happy
 (defclass data-scaffold (scaffold)
