@@ -63,9 +63,8 @@
   (:method ((tokens uri-tokens) &optional (how-many 1))
     (unless (tokens-fully-consumed-p tokens)
       (let ((current-tokens (firstn how-many (remaining-tokens tokens))))
-        (symbol-macrolet ((remaining-tokens (remaining-tokens tokens))
-                          (consumed-tokens (consumed-tokens tokens)))
-          (setf consumed-tokens (append consumed-tokens current-tokens))
+        (symbol-macrolet ((remaining-tokens (remaining-tokens tokens)))
+	  (consume-tokens tokens current-tokens)
           (setf remaining-tokens (safe-subseq remaining-tokens how-many)))
         current-tokens))))
 
@@ -74,6 +73,7 @@
   (car (pop-tokens tokens 1)))
 
 (defgeneric consume-tokens (tokens token-list)
+  (:documentation "Adds the tokens in token-list to the consumed part of tokens.")
   (:method ((tokens uri-tokens) token-list)
     (setf (consumed-tokens tokens) (append (consumed-tokens tokens) token-list))
     token-list))
