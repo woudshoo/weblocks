@@ -488,7 +488,7 @@ KEY is compared using EQUAL."
 	   *webapp-permanent-actions*))
 
 (defun add-webapp-permanent-action (webapp-name action-name function-or-name)
-  "Remove an action from a webapp.  action-name should be a string, or it
+  "Add an action to a webapp.  action-name should be a string, or it
    will be converted to one (to work with the macro).  function-or-name is
    a symbol or a function object (valid object for funcall)"
   (assert (symbolp webapp-name))
